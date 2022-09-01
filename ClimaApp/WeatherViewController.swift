@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class WeatherViewController: UIViewController {
     
     let backgroungView = UIImageView()
     
@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     
     //search
     let searchStackView = UIStackView()
-    let locationButton = UIButton()
-    let searchButton = UIButton()
+    var locationButton = UIButton()
+    var searchButton = UIButton()
     var searchTextField = UITextField()
     
     //weather
@@ -27,13 +27,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
         style()
         layout()
     }
 }
 
-extension ViewController {
-    func style() {
+extension WeatherViewController {
+    private func setup() {
+        searchTextField.delegate = self
+    }
+    
+    private func style() {
         backgroungView.translatesAutoresizingMaskIntoConstraints = false
         backgroungView.image = UIImage(named: "background")
         backgroungView.contentMode = .scaleAspectFill
@@ -54,6 +59,7 @@ extension ViewController {
         searchButton.translatesAutoresizingMaskIntoConstraints = false
         searchButton.setBackgroundImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         searchButton.tintColor = appColor
+        searchButton.addTarget(self, action: #selector(searchButtonPressed), for: .primaryActionTriggered)
         
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         searchTextField.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -61,6 +67,8 @@ extension ViewController {
         searchTextField.textAlignment = .right
         searchTextField.borderStyle = .roundedRect
         searchTextField.backgroundColor = .systemFill
+        searchTextField.autocapitalizationType = .words
+        searchTextField.returnKeyType = .go
         
         conditionImageView.translatesAutoresizingMaskIntoConstraints = false
         conditionImageView.image = UIImage(systemName: "sun.max")
@@ -80,7 +88,7 @@ extension ViewController {
         
     }
     
-    func layout() {
+    private func layout() {
         view.addSubview(backgroungView)
         
         view.addSubview(rootStackView)
@@ -118,5 +126,39 @@ extension ViewController {
         ])
         
     }
+    
+    @objc func searchButtonPressed() {
+        searchTextField.endEditing(true)
+        print(searchTextField.text!)
+    }
+    
+    @objc func locationButtonPressed() {
+        
+    }
 }
+
+extension WeatherViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.endEditing(true)
+        print(searchTextField.text!) //напечатает что там набрал в текст филде, по нажатию кнопки на клавиатуре
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if searchTextField.text != "" {
+            return true
+        } else {
+            searchTextField.placeholder = "Type someting here"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //Use searchTextField. text to get the weather for that city
+        
+        searchTextField.text = "" //обнуляем текст в текстфилде
+    }
+    
+}
+ 
 
