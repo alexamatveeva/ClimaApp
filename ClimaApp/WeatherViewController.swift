@@ -24,6 +24,7 @@ class WeatherViewController: UIViewController {
     var temperatureLabel = UILabel()
     var cityLabel = UILabel()
     
+    var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,7 +155,9 @@ extension WeatherViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        //Use searchTextField. text to get the weather for that city
+        if let city = searchTextField.text {
+            weatherManager.fetchWeather(cityName: city)
+        }
         
         searchTextField.text = "" //обнуляем текст в текстфилде
     }
