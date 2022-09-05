@@ -13,6 +13,7 @@
 		A817009228BF8AFE008C7FD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A817009028BF8AFE008C7FD1 /* LaunchScreen.storyboard */; };
 		A81700C028C106D7008C7FD1 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700BF28C106D7008C7FD1 /* WeatherManager.swift */; };
 		A81700C228C1F762008C7FD1 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700C128C1F762008C7FD1 /* WeatherData.swift */; };
+		A81700C428C24AEB008C7FD1 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81700C328C24AEA008C7FD1 /* WeatherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A817009328BF8AFE008C7FD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A81700BF28C106D7008C7FD1 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		A81700C128C1F762008C7FD1 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		A81700C328C24AEA008C7FD1 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				A817009028BF8AFE008C7FD1 /* LaunchScreen.storyboard */,
 				A817009328BF8AFE008C7FD1 /* Info.plist */,
 				A81700BF28C106D7008C7FD1 /* WeatherManager.swift */,
+				A81700C328C24AEA008C7FD1 /* WeatherModel.swift */,
 				A81700C128C1F762008C7FD1 /* WeatherData.swift */,
 			);
 			path = ClimaApp;
@@ -141,6 +144,7 @@
 				A817008A28BF8AFC008C7FD1 /* WeatherViewController.swift in Sources */,
 				A81700C228C1F762008C7FD1 /* WeatherData.swift in Sources */,
 				A817008628BF8AFC008C7FD1 /* AppDelegate.swift in Sources */,
+				A81700C428C24AEB008C7FD1 /* WeatherModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

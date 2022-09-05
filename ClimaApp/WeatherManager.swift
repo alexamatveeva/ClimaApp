@@ -7,11 +7,18 @@
 
 import Foundation
 
+protocol WeatherManagerDelegate {
+    func didUpdateWeather(weather: WeatherModel)
+}
+
 struct WeatherManager {
+    var delegate: WeatherManagerDelegate?
+    
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=6aec6f7a0f7e05b0a27efc71dcb459c7&lang=ru&units=metric"
     
     func fetchWeather(cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName)"
+        print(urlString)
         performRequest(urlString: urlString)
     }
     
@@ -29,7 +36,9 @@ struct WeatherManager {
                 }
                 
                 if let safeData = data {
-                    self.parseJSON(weatherData: safeData)
+                    if let weather = self.parseJSON(weatherData: safeData) {
+                        self.delegate?.didUpdateWeather(weather: weather)
+                    }
                 }
             }
             
@@ -40,53 +49,29 @@ struct WeatherManager {
         
     }
     
-    func parseJSON(weatherData: Data) {
+    func parseJSON(weatherData: Data) -> WeatherModel? {
         let decoder = JSONDecoder()
         
         do {
-            let decidedData = try decoder.decode(WeatherData.self, from: weatherData)
-            print(decidedData.name)
-            print(decidedData.main.temp)
-            print(decidedData.weather[0].description)
-            print(decidedData.main.temp_max)
-            let weatherConditionName = getContidionName(weatherID: decidedData.weather[0].id)
-            print(weatherConditionName)
+            let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
+            let id = decodedData.weather[0].id
+            let temp = decodedData.main.temp
+            let name = decodedData.name
+            
+            let weather = WeatherModel(conditionID: id, cityName: name, temperature: temp)
+            
+            return weather
+            
             
         } catch {
             print(error)
+            return nil
         }
         
         
         
     }
     
-    func getContidionName(weatherID: Int) -> String {
-        switch weatherID {
-        case 200...232:
-            return "cloud.bolt"
-            
-        case 300...321:
-            return "cloud.drizzle"
-            
-        case 500...531:
-            return "cloud.rain"
-            
-        case 600...622:
-            return "cloud.snow"
-            
-        case 701...781:
-            return "cloud.fog"
-            
-        case 800:
-            return "sun.max"
-            
-        case 801...804:
-            return "cloud.bolt"
-            
-        default:
-            return "cloud"
-        }
-        
-    }
+
     
 }

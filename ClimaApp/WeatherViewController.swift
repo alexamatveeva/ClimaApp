@@ -37,6 +37,7 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController {
     private func setup() {
         searchTextField.delegate = self
+        weatherManager.delegate = self
     }
     
     private func style() {
@@ -162,6 +163,12 @@ extension WeatherViewController: UITextFieldDelegate {
         searchTextField.text = "" //обнуляем текст в текстфилде
     }
     
+}
+
+extension WeatherViewController: WeatherManagerDelegate {
+    func didUpdateWeather(weather: WeatherModel) {
+        print(weather.tempetureString)
+    }
 }
  
 
